@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+prompts.py
+venv/
+.env
+
+# Project specific
+temp_uploads/
+*.json
+
+# OS
+.DS_Store
