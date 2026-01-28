@@ -44,15 +44,14 @@ Ideal for developers and system integration. Features automated interactive docu
 `python main.py`
 * **How to Use:** 
 Open your browser and navigate to `http://localhost:8000/docs`. You can test the 
- * `/analyze`: analyze question and generate hashtag
- * `/analyze/batch`: analyze batch of questions and generate hashtag
- * `/generate/similar`: generate similar questions
+    * `/analyze`: analyze question and generate hashtag
+    * `/analyze/batch`: analyze batch of questions and generate hashtag
+    * `/generate/similar`: generate similar questions
 
 **2. Interactive Dashboard (Gradio Demo)**
 Ideal for Teaching Assistants for visual operation and data analytics.
 * **Launch Command :**
-
-`python gradio_app.py`
+    `python gradio_app.py`
 
 * **How to Use:** Open your browser and navigate to `http://localhost:7860`.
     * **Single Analysis:** Upload a screenshot for real-time tagging.
@@ -61,7 +60,7 @@ Ideal for Teaching Assistants for visual operation and data analytics.
     * **Batch Processing:** Enter a server directory path to generate a full statistical report with distribution charts.
 ![image](https://hackmd.io/_uploads/rJ7BTT4U-l.png)
 
-
+    * **Generate Similar Question:** Upload an image of question and generate 3 similar questions
 ## 📂 Project Structure (Current)
 ```
 Teaching-Assistant/
