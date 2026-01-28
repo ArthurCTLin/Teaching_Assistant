@@ -54,7 +54,7 @@ class MathAIService:
         with torch.inference_mode():
             generation = self.model.generate(
                 **inputs,
-                max_new_tokens=256,
+                max_new_tokens=512,
                 do_sample=False,
                 use_cache=True
             )
@@ -84,7 +84,7 @@ class MathAIService:
         except json.JSONDecodeError as e:
             return {"error": f"JSON decode error: {e}", "raw": model_output}
 
-    def process_single(self, img: Image.Image, image_name: str, prompt_text: str) -> Dict[str, Any]:
+    def process_analysis(self, img: Image.Image, image_name: str, prompt_text: str) -> Dict[str, Any]:
         
         raw_output = self.ai_analysis(img, prompt_text)
         return self.post_process_output(raw_output, image_name)
@@ -130,3 +130,6 @@ class MathAIService:
             json.dump(batch_report, f, indent=4, ensure_ascii=False)
             
         return batch_report
+
+    def generate_similar_questions(self, img: Image.Image, prompt_text: str) -> str:
+        return self.ai_analysis(img, prompt_text)

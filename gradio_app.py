@@ -2,7 +2,7 @@ import gradio as gr
 import os
 import json
 import pandas as pd
-from app.services.prompts import SAT_MATH_ANALYZER_PROMPT
+from app.services.prompts import SAT_MATH_ANALYZER_PROMPT, SIMILAR_QUESTION_PROMPT
 from main import ai_service
 
 def handle_single(image):
@@ -31,10 +31,13 @@ def handle_batch(folder_path, progress=gr.Progress()):
 
     df = df.sort_values(by="Count", ascending=False)
 
-    print("DEBUG - DataFrame for Chart:")
-    print(df)
-
     return json.dumps(report, indent=4), df, df
+
+def handle_generate_similar(image):
+    if image is None:
+        return "Please upload an image first."
+    similar_text = ai_service.generate_similar_questions(image, SIMILAR_QUESTION_PROMPT)
+    return similar_text
 
 with gr.Blocks(title="SAT Math AI Assistant") as demo:
     gr.Markdown("# 🎓 SAT Math AI Teaching Assistant")
@@ -83,6 +86,20 @@ with gr.Blocks(title="SAT Math AI Assistant") as demo:
                 inputs=folder_input,
                 outputs=[batch_json, batch_chart, batch_table]
             )
+        with gr.TabItem("Generate Similar Questions"):
+            gr.Markdown("### Upload a question to generate 3 similar practice problems")
+            with gr.Row():
+                with gr.Column():
+                    input_img_gen = gr.Image(type="pil", label="Example Question")
+                    btn_gen = gr.Button("Generate Mirror Questions", variant="primary")
+                with gr.Column():
+                    output_markdown = gr.Markdown(label="Generated Questions")
+            btn_gen.click(
+                fn=handle_generate_similar,
+                inputs=input_img_gen,
+                outputs=output_markdown
+            )
+
 
 if __name__ == "__main__":
     demo.launch(server_name="0.0.0.0", server_port=7860)

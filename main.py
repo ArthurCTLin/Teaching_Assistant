@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, status, UploadFile, File, Form
 from app.schemas import MathAnalysisSchema, AnalysisRequest
 from app.services import MathAIService
-from app.services.prompts import SAT_MATH_ANALYZER_PROMPT
+from app.services.prompts import SAT_MATH_ANALYZER_PROMPT, SIMILAR_QUESTION_PROMPT
 from pathlib import Path
 import os
 import shutil
@@ -47,3 +47,28 @@ async def analyze_batch(folder_path: str = Form(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/generate/similar")
+async def generate_similar(file: UploadFile = File(...)):
+    temp_dir = Path("temp_uploads")
+    temp_dir.mkdir(exist_ok=True)
+    temp_file_path = temp_dir / file.filename
+
+    try:
+        with temp_file_path.open("wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+
+        img_pil = ai_service.read_image(str(temp_file_path))
+        generated_text = ai_service.generate_similar_questions(img_pil, SIMILAR_QUESTION_PROMPT)
+
+        return {
+            "filename": file.filename,
+            "generated_questions": generated_text
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if temp_file_path.exists(): temp_file_path.unlink()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
