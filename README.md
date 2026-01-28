@@ -40,8 +40,7 @@ The system provides two parallel interfaces for different use cases:
 Ideal for developers and system integration. Features automated interactive documentation (Swagger UI).
 
 * **Launch Command:**
-
-`python main.py`
+    `python main.py`
 * **How to Use:** 
 Open your browser and navigate to `http://localhost:8000/docs`. You can test the 
     * `/analyze`: analyze question and generate hashtag
@@ -61,6 +60,7 @@ Ideal for Teaching Assistants for visual operation and data analytics.
 ![image](https://hackmd.io/_uploads/rJ7BTT4U-l.png)
 
     * **Generate Similar Question:** Upload an image of question and generate 3 similar questions
+![image](https://hackmd.io/_uploads/r1TMVEDUZx.png)
 ## 📂 Project Structure (Current)
 ```
 Teaching-Assistant/
