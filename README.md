@@ -40,13 +40,20 @@ The system provides two parallel interfaces for different use cases:
 Ideal for developers and system integration. Features automated interactive documentation (Swagger UI).
 
 * **Launch Command:**
-`uvicorn main:app --host 0.0.0.0 --port 8000 --reload`
-* **How to Use:** Open your browser and navigate to `http://localhost:8000/docs`. You can test the `/analyze/single` and `/analyze/batch` endpoints directly from the UI.
+
+`python main.py`
+* **How to Use:** 
+Open your browser and navigate to `http://localhost:8000/docs`. You can test the 
+ * `/analyze`: analyze question and generate hashtag
+ * `/analyze/batch`: analyze batch of questions and generate hashtag
+ * `/generate/similar`: generate similar questions
 
 **2. Interactive Dashboard (Gradio Demo)**
 Ideal for Teaching Assistants for visual operation and data analytics.
 * **Launch Command :**
+
 `python gradio_app.py`
+
 * **How to Use:** Open your browser and navigate to `http://localhost:7860`.
     * **Single Analysis:** Upload a screenshot for real-time tagging.
 ![image](https://hackmd.io/_uploads/HJRFRpNUWe.png)
@@ -62,9 +69,9 @@ Teaching-Assistant/
 │   ├── main.py          # FastAPI entry point
 │   ├── schemas.py       # Pydantic data models
 │   └── services/
-│       ├── ai_engine.py # Core AI service logic (Analysis & Stats)
-│       └── prompts.py   # LLM Prompt definitions
+│       ├── ai_engine.py # Core AI service (Analysis & Stats)
+│       └── prompts.py   # LLM Prompts
 ├── gradio_app.py        # Gradio UI implementation
-├── requirements.txt     # Dependency list (CUDA 12.8 specific)
-└── .gitignore           # Git exclusion rules
+├── requirements.txt     
+└── .gitignore          
 ```
